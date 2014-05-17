@@ -205,34 +205,7 @@ void InCodench(long nach [100000], long endd[100000], char mut_nuk[100000], char
 
     }
 
- void compare (int coden,int codem, int pos, int codons[6][21], char Aminok[21][4]){
-    int j=0;
-    int l=0;
-    int i1=0;
-    int k=0;
-    while (j<=21)
-    {while (i1<=6)
-        {if (codons[i1][j]==coden)
-            k=j;
-         if (codons[i1][j]==codem)
-            l=j;
-         i1++;
-         }
-    i1=0;
-    j++;
-    }
-   if (k!=l)
-   cout << "In position " <<pos<< " no sinonimic  " << Aminok[k] << "->" << Aminok[l];
-   if (k==l)
-   cout <<"In position "<<pos<< " sinonimic  " << Aminok[k];
-
-
-
-}
-main()
-{   char ref[1000000]={0};    //to massiv 'referens'
-    long nach[100000]={0};
-    long endd[100000]={0};
+ void compare (int coden,int codem, int pos ){
     int codons[6][21]=      // A=1, T=2, G=3, C=4
     {
      {222,221,122,321,241,441,141,341,212,412,411,112,111,312,311,232,233,431,331,211,123},
@@ -245,6 +218,35 @@ main()
 
     char  Aminok[21][4]=
     {"Phe", "Leu","Ile","Val","Ser","Pro", "Thr", "Ala", "Tyr", "His","Gin","Asn", "Lys", "Asp","Glu","Cys","Trp","Arg","Gly", "Beg", "End"};
+
+    int j=0;
+    int l=0;
+    int i1=0;
+    int k=0;
+    while (j<=21)
+    {
+        while (i1<=6)
+        {
+            if (codons[i1][j]==coden)
+            k=j;
+            if (codons[i1][j]==codem)
+            l=j;
+            i1++;
+         }
+        i1=0;
+        j++;
+    }
+   if (k!=l)
+   cout << "In position " <<pos<< " no sinonimic  " << Aminok[k][0]<<Aminok[k][1]<<Aminok[k][2]<< "->" << Aminok[l][0]<<Aminok[l][1]<<Aminok[l][2];
+   if (k==l)
+   cout <<"In position "<<pos<< " sinonimic  " << Aminok[k][0]<<Aminok[k][1]<<Aminok[k][3];
+
+
+}
+main()
+{   char ref[1000000]={0};    //to massiv 'referens'
+    long nach[100000]={0};
+    long endd[100000]={0};
     char mut_nuk[100000];
     int mut_pos[100000];
     int pos=0;
@@ -259,6 +261,7 @@ main()
         pos=mut_pos[i];
         InCodench(nach, endd, mut_nuk, ref, mut_pos, i);
         extraction(codens, codems, coden,codem );
-        compare ( coden, codem, mut_pos, codons, Aminok);
-    }
+        compare ( coden, codem, pos);
+   }
+   return 0;
 }
