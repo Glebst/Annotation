@@ -51,15 +51,11 @@ void Gran_genes (long nach[100000], long endd[100000], int qQ, FILE *ptt )
                 break;
             }
         }
-       // cout<<nach[i]<<"\t"<<endd[i]<<"\t"<<i<<"\n";
-
         if (y==1)
         break;
 
         i++;
     }
-   // cout<<"\n"<<qQ<<"\n";
-
 }
 int genes(int qQ, FILE *fna)
 {
@@ -98,7 +94,6 @@ void refer(int *ref, FILE *fna)
             ref[q1]=4;
             else cout<<"musora "<<ch;
             q1++;
-            //cout<<ref[q1-1]<<"\t"<<ch<<"\n";
         }
     }
     cout<<"in ref "<<q1<<"\n";
@@ -106,7 +101,7 @@ void refer(int *ref, FILE *fna)
 }
 
 void mutation(int *mut_pos, int *mut_code,int *Q, FILE *mut)
-{   //cout<<"\n"<<*Q<<"\n";
+{   
     int k=0;
     int i=0;
     char ch;
@@ -134,7 +129,6 @@ void mutation(int *mut_pos, int *mut_code,int *Q, FILE *mut)
             if (ch=='C')
             mut_nuk_code[i]=4;
             (*Q)++;
-          //  cout<<mut_nuk_code[i]<<"\n";
             }
 
         i++;
@@ -142,8 +136,6 @@ void mutation(int *mut_pos, int *mut_code,int *Q, FILE *mut)
             i=999999;
             }
         }
-        //if(*Q!=0)
-        //cout<<"\n"<<*Q<<"\n";
     }
 
 
@@ -152,29 +144,21 @@ void mutation(int *mut_pos, int *mut_code,int *Q, FILE *mut)
 
 
 void InCodench(long nach[100000], long endd[100000], int mut_nuk_code[300000], int ref[3000000], int mut_pos[300000], int i,int *coden, int *codem,int qQ,int *g)
-{   //cout<<(*j)<<"\t";//<<qQ<<"\n";
+{   
     int k,j = 0;
-   // cout<<i<<"\n";
-    while ((j)<=qQ)
-    {   //cout<<mut_pos[*i]<<"\t"<<nach[j]<<"\t"<<endd[*j]<<"\n";
+    {   
         if(mut_pos[i]>=nach[j] && mut_pos[i]<=endd[j])
         {
             k=1;
             (*g)=2;
-            //cout<<"\t"<<nach[j]<<"\t"<<mut_pos[i]<<"\t"<<endd[j]<<"\n";
             break;
             }                            //if k=1, then mutation is in gene
         else {
             k=2;}
             (j)++;
-            //if k=2, then mutation isn't in gene
     }
-        //cout<<k<<"\n";
         if (k==1)
         {
-          // cout <<"\n"<< ref[mut_pos[i]-2] <<ref[mut_pos[i]-1]<< ref[mut_pos[i]]<<ref[mut_pos[i]+1]<<ref[mut_pos[i]+2]<<"\n";
-            //getchar();
-           // cout<<(mut_pos[i]-nach[j])%3<<"\n";
             if ((mut_pos[i]-nach[j])%3==0)
                 {
                 (*coden)=ref[mut_pos[i]]*100+ref[mut_pos[i]+1]*10+ref[mut_pos[i]+2];
@@ -191,7 +175,6 @@ void InCodench(long nach[100000], long endd[100000], int mut_nuk_code[300000], i
                 (*codem)=ref[mut_pos[i]-2]*100+ref[mut_pos[i]-1]*10+mut_nuk_code[i];
                 }
         }
-//cout<<(*coden)<<"\t"<<(*codem)<<"\n";
 
 
 
@@ -282,16 +265,15 @@ int qQ=0;
     for(int i=0;i<=Q;i++)
     {
         pos=mut_pos[i];
-
         InCodench(nach, endd, mut_nuk_code, ref, mut_pos, i, &coden, &codem,qQ,&g);
-        compare ( coden, codem, pos);
-        x++;
-
-        if (x==p*mmm)
+        compare ( coden, codem, pos);       // for compare mutation codon and normal coden
+        
+        if (x==(p*mmm))             // for out progress
             {
             cout<<p<<"%";
             p++;
             }
+        x++;
     }
     return 0;
 
