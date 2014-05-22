@@ -6,6 +6,10 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <math.h>
 using namespace std;
     int ref[3000000];
     long nach[300000]={0};
@@ -253,12 +257,13 @@ void InCodench(long nach[100000], long endd[100000], int mut_nuk_code[300000], i
 
 
 }
-int main()
+int main(int argc, char *argv[])
 {
 
-FILE *ptt = fopen(argv[1], "r"), *ref=fopen(argv[2], "w"), *mut = fopen(argv[3], "w");
+FILE *ptt = fopen(argv[1], "r"), *fna=fopen(argv[2], "w"), *mut = fopen(argv[3], "w");
 
 int j=0, Q=0;
+int p=0, x=0;
 int pos=0;
 int coden=0, codem=0;
 int qQ=0;
@@ -273,12 +278,20 @@ int qQ=0;
     mutation(mut_pos, mut_nuk_code,&Q, mut);
     cout << "mutation on\n";
     std::ofstream of("annotation.txt");
+    int mmm=Q/100;
     for(int i=0;i<=Q;i++)
     {
         pos=mut_pos[i];
 
         InCodench(nach, endd, mut_nuk_code, ref, mut_pos, i, &coden, &codem,qQ,&g);
         compare ( coden, codem, pos);
+        x++;
+
+        if (x==p*mmm)
+            {
+            cout<<p<<"%";
+            p++;
+            }
     }
     return 0;
 
